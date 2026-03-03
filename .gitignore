@@ -1,5 +1,18 @@
+# Terraform working directory
 .terraform/
+
+# Terraform state files
 *.tfstate
-*.tfstate.backup
-terraform.tfvars
+*.tfstate.*
+terraform.tfstate
+terraform.tfstate.backup
+
+# Terraform plan files
 tfplan
+
+# Local variable values (may contain secrets)
+terraform.tfvars
+*.auto.tfvars
+
+# Provider lock file (optional for learning repo)
+.terraform.lock.hcl
