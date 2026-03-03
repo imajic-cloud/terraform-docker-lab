@@ -14,3 +14,6 @@ module "ec2" {
 
   instance_name = "dev"
 }
+module "iam_ec2" {
+  source = "./modules/iam-ec2"
+}
