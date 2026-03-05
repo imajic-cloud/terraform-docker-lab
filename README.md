@@ -1,67 +1,24 @@
-# Terraform AWS ALB + ASG Infrastructure
+# Project 3 – AWS ALB + ASG with Terraform
 
 ## Overview
-
-Production-style AWS infrastructure built with Terraform.
-
-This project deploys a Dockerized Nginx application behind:
-
-- Application Load Balancer (ALB)
-- Auto Scaling Group (ASG)
-- Launch Template
-
-Infrastructure is fully reproducible and designed to be created and destroyed safely.
-
----
+Production AWS infrastructure with load balancing and auto-scaling using Terraform.
 
 ## Architecture
-
-```
-Internet
-   │
-   ▼
-Application Load Balancer (ALB)
-   │
-   ▼
-Target Group (HTTP health checks)
-   │
-   ▼
-Auto Scaling Group (min=1, max=2)
-   │
-   ▼
-EC2 Instance (Docker + Nginx)
-```
-
----
+Internet → ALB → Target Group → ASG (min=1, max=2) → EC2 (Docker + Nginx)
 
 ## Key Features
+- S3 + DynamoDB remote state with locking
+- Launch Template for immutable infrastructure
+- Auto Scaling Group with health checks
+- ALB with proper security group separation
+- Self-healing systems
 
-- Remote backend (S3 + DynamoDB state locking)
-- Launch Template (immutable infrastructure)
-- Auto Scaling Group (self-healing)
-- ALB with health checks
-- Proper security group separation (ALB → EC2)
-- IAM instance profile
-- Docker deployment via user_data
-- Infrastructure lifecycle management
-
----
-
-## Terraform Commands
-
+## Quick Start
 ```bash
 terraform init
 terraform plan
 terraform apply
-terraform destroy
 ```
 
----
-
-## What This Demonstrates
-
-- Immutable infrastructure principles
-- High availability design
-- Self-healing systems
-- Terraform module structure
-- AWS networking fundamentals
+## Technologies
+Terraform, AWS (ALB, ASG, EC2, S3, DynamoDB)
