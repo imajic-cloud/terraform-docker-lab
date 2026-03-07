@@ -142,14 +142,22 @@ terraform destroy
 ```
 03-aws-alb-asg-terraform
 │
-├── main.tf
-├── variables.tf
-├── outputs.tf
-├── user_data.sh
+├── backend.tf              # Terraform backend configuration
+├── provider.tf             # AWS provider configuration
+├── versions.tf             # Terraform and provider version constraints
+├── main.tf                 # Main infrastructure resources
+├── variables.tf            # Input variables
+├── outputs.tf              # Terraform outputs (ALB DNS name)
+├── user_data.sh            # EC2 bootstrap script (Docker + Nginx)
+│
 ├── modules/
 │   ├── ec2/
+│   │   └── main.tf         # EC2 instance module
 │   └── security-group/
+│       └── main.tf         # Security group module
+│
 ├── .gitignore
+├── .terraform.lock.hcl
 └── README.md
 ```
 ## Key Learnings
@@ -160,6 +168,15 @@ This project demonstrates:
 - Containerized application deployment
 - Security group configuration
 - Automated infrastructure provisioning
+
+## Project Goal
+
+The goal of this project is to demonstrate how to deploy
+a scalable web application infrastructure on AWS using Terraform.
+
+The architecture uses an Application Load Balancer
+and an Auto Scaling Group to provide high availability
+and automatic scaling.
 
 ## Troubleshooting
 
