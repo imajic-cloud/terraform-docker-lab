@@ -4,7 +4,7 @@ data "aws_ami" "latest_amazon_linux" {
 
   filter {
     name   = "name"
-    values = ["al2023-ami-*-x86_64"]
+    values = ["amzn2-ami-hvm-*-x86_64-gp2"]
   }
 }
 
@@ -18,8 +18,13 @@ resource "aws_launch_template" "this" {
   }
 
   key_name = var.key_name
+  user_data = var.user_data
 
-  user_data = base64encode(var.user_data)
+  metadata_options {
+    http_endpoint               = "enabled"
+    http_tokens                 = "optional"
+    http_put_response_hop_limit = 1
+  }
 
   vpc_security_group_ids = [var.security_group_id]
 
@@ -31,6 +36,7 @@ resource "aws_launch_template" "this" {
     }
   }
 }
+
 resource "aws_autoscaling_group" "this" {
   name = "docker-lab-asg"
 
@@ -39,7 +45,7 @@ resource "aws_autoscaling_group" "this" {
   desired_capacity = 1
 
   vpc_zone_identifier = var.subnet_ids
-  target_group_arns = [aws_lb_target_group.this.arn]
+  target_group_arns   = [aws_lb_target_group.this.arn]
   
   launch_template {
     id      = aws_launch_template.this.id
@@ -52,6 +58,7 @@ resource "aws_autoscaling_group" "this" {
     propagate_at_launch = true
   }
 }
+
 resource "aws_lb_target_group" "this" {
   name     = "docker-lab-tg"
   port     = 80
@@ -67,6 +74,7 @@ resource "aws_lb_target_group" "this" {
     matcher             = "200"
   }
 }
+
 resource "aws_lb" "this" {
   name               = "docker-lab-alb"
   internal           = false
@@ -74,6 +82,7 @@ resource "aws_lb" "this" {
   subnets            = var.subnet_ids
   security_groups    = [var.security_group_id]
 }
+
 resource "aws_lb_listener" "this" {
   load_balancer_arn = aws_lb.this.arn
   port              = 80

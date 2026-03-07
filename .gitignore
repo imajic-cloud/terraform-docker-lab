@@ -1,18 +1,91 @@
+# ----------------------------
+
 # Terraform working directory
+
+# ----------------------------
+
 .terraform/
 
+# ----------------------------
+
 # Terraform state files
+
+# ----------------------------
+
 *.tfstate
 *.tfstate.*
 terraform.tfstate
 terraform.tfstate.backup
 
+# ----------------------------
+
 # Terraform plan files
+
+# ----------------------------
+
+*.tfplan
 tfplan
 
-# Local variable values (may contain secrets)
+# ----------------------------
+
+# Terraform variable files
+
+# ----------------------------
+
 terraform.tfvars
 *.auto.tfvars
 
-# Provider lock file (optional for learning repo)
-.terraform.lock.hcl
+# ----------------------------
+
+# Terraform crash logs
+
+# ----------------------------
+
+crash.log
+
+# ----------------------------
+
+# Provider lock file (optional)
+
+# Uncomment if you don't want to track provider versions
+
+# ----------------------------
+
+#.terraform.lock.hcl
+
+# ----------------------------
+
+# SSH keys (never commit!)
+
+# ----------------------------
+
+*.pem
+*.key
+
+# ----------------------------
+
+# Log files
+
+# ----------------------------
+
+*-log.txt
+*.log
+
+# ----------------------------
+
+# OS / editor files
+
+# ----------------------------
+
+.DS_Store
+Thumbs.db
+.vscode/
+.idea/
+
+# ----------------------------
+
+# Environment files
+
+# ----------------------------
+
+.env
